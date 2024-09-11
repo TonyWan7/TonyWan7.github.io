@@ -1,1 +1,135 @@
-<img src="media/cathedral.jpg">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 1</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Project 1: Images of the Russian Empire:</h1>
+        <p class="subtitle">Colorizing the Prokudin-Gorskii Photo Collection</p>
+        <p class="author">By Tony Wan</p>
+        
+        <div class="section">
+            <h2>1. Introduction</h2>
+            <p>
+                In this project, I implemented image alignment using two metrics: Sum of Squared Differences (SSD) and Normalized Cross-Correlation (NCC). 
+                The goal was to align images based on these metrics and improve alignment using a coarse-to-fine pyramid approach.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>2. Methodology</h2>
+            <p>The initial steps were as follows:</p>
+            <ol>
+                <li>Preprocessing: Read in the image file as double and seperate the RGB channels.</li>
+                <li>Aligning: (a) Align the Green and Red channels to the Blue channel using either SSD (squared Euclidean distance) 
+                    or NCC (normalized dot product) as the score metric. <br>
+                    (b) Iteratively search in a &plusmn;15&times;15 window for the displacement with the best score. <br>
+                    (c) Shift the channel with that displacement.
+                </li>
+                <li>Colorizing: Stack the shifted Green and Red channels and stack them on top of the Blue channel.</li>
+                <li>Finishing: Save the colored image file and display it for visual inspection.</li>
+            </ol>
+            
+            <p>Some improvements made:</p>
+            <ol>
+                <li>For Preprocessing: Crop the borders of the images to elimate irrelevant black and white edges.</li>
+                <li>For Aligning: Implement a pyramid approach by downsampling to handle large images efficiently.</li>
+                <li>For Colorizing: Change the base channel from Blue to Green for better reference.</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>3. Results</h2>
+            <h3>3.1 Naive Implementation Results</h3>
+            <div class="image-row">
+                <figure>
+                    <img src="media/cathedral.jpg" alt="cathedral.jpg">
+                    <figcaption>
+                        cathedral.jpg<br>
+                        Green Displacement: (-1, 1)<br>
+                        Red Displacement: (-1, 7)
+                    </figcaption>
+                </figure>
+                <figure>
+                    <img src="media/tobolsk.jpg" alt="tobolsk.jpg">
+                    <figcaption>
+                        tobolsk.jpg<br>
+                        Green Displacement: (2, 3)<br>
+                        Red Displacement: (3, 6)
+                    </figcaption>
+                </figure>
+            </div>
+
+            <h3>3.1 Optimized Implementation Results</h3>
+            <div class="image-row">
+                <figure>
+                    <img src="media/church.jpg" alt="church.jpg">
+                    <figcaption>
+                        church.tif<br>
+                        Blue Displacement: (-4, -25)<br>
+                        Red Displacement: (-8, 33)
+                    </figcaption>
+                </figure>
+                <figure>
+                    <img src="media/harvesters.jpg" alt="harvesters.jpg">
+                    <figcaption>
+                        harvesters.tif<br>
+                        Blue Displacement: (-16, -59)<br>
+                        Red Displacement: (-3, 65)
+                    </figcaption>
+                </figure>
+                <figure>
+                    <img src="media/icon.jpg" alt="icon.jpg">
+                    <figcaption>
+                        icon.tif<br>
+                        Blue Displacement: (-17, -41)<br>
+                        Red Displacement: (5, 48)
+                    </figcaption>
+                </figure>
+                <figure>
+                    <img src="media/lady.jpg" alt="lady.jpg">
+                    <figcaption>
+                        lady.tif<br>
+                        Blue Displacement: (-9, -51)<br>
+                        Red Displacement: (3, 61)
+                    </figcaption>
+                </figure>
+                <figure>
+                    <img src="media/emir1.jpg" alt="emir1.jpg">
+                    <figcaption>
+                        emir.tif (Aligning to Blue)<br>
+                        Green Displacement: (24, 49)<br>
+                        Red Displacement: (-388, 95)
+                    </figcaption>
+                </figure>
+                <figure>
+                    <img src="media/emir2.jpg" alt="emir2.jpg">
+                    <figcaption>
+                        emir.tif (Aligning to Green)<br>
+                        Blue Displacement: (-24, -49)<br>
+                        Red Displacement: (17, 57)
+                    </figcaption>
+                </figure>
+            </div>
+            
+        </div>
+
+        <div class="section">
+            <h2>4. Conclusion</h2>
+            <p>
+                In conclusion, the image alignment was successfully implemented using both SSD and NCC metrics. The coarse-to-fine pyramid approach 
+                provided a significant speedup for large images. Cropping the images helped in eliminating border artifacts that could affect the alignment process.
+                And aligning to different channels avoided the interference of emir's blue clothes.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>CS180 Project 1: Images of the Russian Empire | Tony Wan | Fall 2024</p>
+        </div>
+    </div>
+</body>
+</html>
