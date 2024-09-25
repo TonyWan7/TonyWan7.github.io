@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Project 2: Fun with Filters and Frequencies!</h1>
+        <!-- <p class="subtitle">Colorizing the Prokudin-Gorskii Photo Collection</p> -->
+        <p class="author">By Tony Wan</p>
+        
+        <div class="section">
+            <h2>Part 1: Fun with Filters</h2>
+            <h3>Part 1.1: Finite Difference Operator</h3>
+            <p>
+                To compute the gradient magnitude, I used the humble finite difference D<sub>x</sub>=[1 -1] and D<sub>y</sub> = [1 -1]<sup>T</sup> to convolve with
+                the image to get the gradient in x and y directons. Then I take the square root of their quadratic sum
+                to get the magnitude of the gradient. 
+            </p>
+            <div class="image-row">
+                <img src="media/1.1/cameraman.png" alt="cameraman.png">
+                <img src="media/1.1/Binarized Gradient Magnitude.png" alt="Binarized Gradient Magnitude.png">
+                <img src="media/1.1/Gradient Magnitude.png" alt="Gradient Magnitude.png">
+                <img src="media/1.1/Partial Derivative.png" alt="Partial Derivative.png">
+            </div>
+
+            <h3>Part 1.2: Derivative of Gaussian (DoG) Filter</h3>
+            <p>
+                The smoothed image has less noises and clearer edges. I can convolve just once and get an equivalent result.
+            </p>
+            <div class="image-row">
+                <img src="media/1.2/Derivative of Gaussian.png" alt="Derivative of Gaussian.png">
+                <img src="media/1.2/Smoothed Partial Derivative.png" alt="Smoothed Partial Derivative.png">
+                <img src="media/1.2/Smoothed Gradient Magnitude.png" alt="Smoothed Gradient Magnitude.png">                
+                <img src="media/1.2/Smoothed Binarized Gradient Magnitude.png" alt="Smoothed Binarized Gradient Magnitude.png">
+                <img src="media/1.2/DoG Partial Derivative.png" alt="DoG Partial Derivative.png">
+                <img src="media/1.2/DoG Gradient Magnitude.png" alt="DoG Gradient Magnitude.png">
+                <img src="media/1.2/DoG Binarized Gradient Magnitude.png" alt="DoG Binarized Gradient Magnitude.png">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Part 2: Fun with Frequencies!</h2>
+            <h3>Part 2.1: Image "Sharpening"</h3>
+            <p>
+
+            </p>
+            <div class="image-row">
+                <img src="media/2.1/Taj.png" alt="Taj.png">
+                <img src="media/2.1/Golden Gate.png" alt="Golden Gate.png">
+            </div>
+
+            <h3>Part 2.2: Hybrid Images</h3>
+            <p>
+                The train one kinda failed since the white train on the right is pretty visible both close and far.
+            </p>
+            <div class="image-row">
+                <img src="media/2.2/DerekPicture.jpg" alt="DerekPicture.jpg">
+                <img src="media/2.2/nutmeg.jpg" alt="nutmeg.jpg">
+                <img src="media/2.2/Derekat.png" alt="Derekat.png">
+                <img src="media/2.2/train left.jpg" alt="train left.jpg">
+                <img src="media/2.2/train right.jpg" alt="train right.jpg">
+                <img src="media/2.2/trains.png" alt="trains.png">
+                <img src="media/2.2/stairs.jpg" alt="stairs.jpg">
+                <img src="media/2.2/Mitsuha Taki.jpg" alt="Mitsuha Taki.jpg">
+                <img src="media/2.2/Your Name.png" alt="Your Name.png">
+                <img src="media/2.2/Your Name FFT.png" alt="Your Name FFT.png">
+            </div>
+
+            <h3>Part 2.3: Gaussian and Laplacian Stacks</h3>
+            <p>
+                
+            </p>
+            <div class="image-row">
+                <img src="media/2.3/apple.jpeg" alt="apple.jpeg">
+                <img src="media/2.3/orange.jpeg" alt="orange.jpeg">
+                <img src="media/2.3/Orange Gaussian Stack.png" alt="Orange Gaussian Stack.png">
+                <img src="media/2.3/Apple Laplacian Stack.png" alt="Apple Laplacian Stack.png">
+                <img src="media/2.3/Orange Laplacian Stack.png" alt="Orange Laplacian Stack.png">
+                <img src="media/2.4/Apple_Orange_Level 0.png" alt="Apple_Orange_Level 0.png">
+                <img src="media/2.4/Apple_Orange_Level 2.png" alt="Apple_Orange_Level 2.png">
+                <img src="media/2.4/Apple_Orange_Level 4.png" alt="Apple_Orange_Level 4.png">
+                <img src="media/2.4/Apple_Orange_Cumulative.png" alt="Apple_Orange_Cumulative.png">
+            </div>
+
+            <h3>Part 2.4: Multiresolution Blending</h3>
+            <p>
+                
+            </p>
+            <div class="image-row">
+                <img src="media/2.4/eclipse.jpg" alt="eclipse.jpg">
+                <img src="media/2.4/Campanile.jpg" alt="Campanile.jpg">
+                <img src="media/2.4/Eclipse_Campanile_Level 0.png" alt="Eclipse_Campanile_Level 0.png">
+                <img src="media/2.4/Eclipse_Campanile_Level 2.png" alt="Eclipse_Campanile_Level 2.png">
+                <img src="media/2.4/Eclipse_Campanile_Level 4.png" alt="Eclipse_Campanile_Level 4.png">
+                <img src="media/2.4/Eclipse_Campanile_Cumulative.png" alt="Eclipse_Campanile_Cumulative.png">
+                <img src="media/2.4/boat.jpg" alt="boat.jpg">
+                <img src="media/2.4/lake.jpg" alt="lake.jpg">
+                <img src="media/2.4/Lake_Boat_Level 0.png" alt="Lake_Boat_Level 0.png">
+                <img src="media/2.4/Lake_Boat_Level 2.png" alt="Lake_Boat_Level 2.png">
+                <img src="media/2.4/Lake_Boat_Level 4.png" alt="Lake_Boat_Level 4.png">
+                <img src="media/2.4/Lake_Boat_Cumulative.png" alt="Lake_Boat_Cumulative.png">
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>CS180 Project 2: Fun with Filters and Frequencies! | Tony Wan | Fall 2024</p>
+        </div>
+    </div>
+</body>
+</html>
