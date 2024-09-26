@@ -2,4 +2,5 @@
 ## Fall 2024 | By Tony Wan
 - [Project 1](https://tonywan7.github.io/1/)
 - [Project 2](https://tonywan7.github.io/2/)
+- [Project 3](https://tonywan7.github.io/3/)
 
