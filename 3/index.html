@@ -15,122 +15,76 @@
         <div class="section">
             <h2>Part 1: Defining Correspondences</h2>
             <p>
-                
-            </p>
-            <!-- <div class="image-row">
-                <img src="media/1.1/cameraman.png" alt="cameraman.png">
-                <img src="media/1.1/Binarized Gradient Magnitude.png" alt="Binarized Gradient Magnitude.png">
-                <img src="media/1.1/Gradient Magnitude.png" alt="Gradient Magnitude.png">
-                <img src="media/1.1/Partial Derivative.png" alt="Partial Derivative.png">
-            </div> -->
+                I picked an image of my own and downloaded one for Daniel Wu (arguably
+                one of the most handsome guys now on earth).
+                I then cropped the images to contain only the face area and to the same size.
+                After, I handpicked 70 correspondence points for each image and added the 4 corners
+                before generating the Delaunay triangulation at the mean of the correspondence points.
 
-            <p>
-                
             </p>
             <div class="image-row">
-                <!-- <img src="media/1.2/Derivative of Gaussian.png" alt="Derivative of Gaussian.png">
-                <img src="media/1.2/Smoothed Partial Derivative.png" alt="Smoothed Partial Derivative.png">
-                <img src="media/1.2/Smoothed Gradient Magnitude.png" alt="Smoothed Gradient Magnitude.png">                
-                <img src="media/1.2/Smoothed Binarized Gradient Magnitude.png" alt="Smoothed Binarized Gradient Magnitude.png">
-                <img src="media/1.2/DoG Partial Derivative.png" alt="DoG Partial Derivative.png">
-                <img src="media/1.2/DoG Gradient Magnitude.png" alt="DoG Gradient Magnitude.png">
-                <img src="media/1.2/DoG Binarized Gradient Magnitude.png" alt="DoG Binarized Gradient Magnitude.png"> -->
+                <img src="media/1/Triangulation.png" alt="Triangulation.png">
             </div>
         </div>
 
         <div class="section">
             <h2>Part 2: Computing the "Mid-way Face"</h2>
-            <div class="image-row">
-                <!-- <img src="media/2.1/Taj.png" alt="Taj.png">
-                <img src="media/2.1/Golden Gate.png" alt="Golden Gate.png"> -->
-            </div>
-
             <p>
-                
+                I looped over the triangles to warp both images into the average shape by
+                bilinear interpolation and inverse affine transformation.
+                I then mix them together to get the mid-way image.
             </p>
             <div class="image-row">
-                <!-- <img src="media/2.2/DerekPicture.jpg" alt="DerekPicture.jpg">
-                <img src="media/2.2/nutmeg.jpg" alt="nutmeg.jpg">
-                <img src="media/2.2/Derekat.png" alt="Derekat.png">
-                <img src="media/2.2/train left.jpg" alt="train left.jpg">
-                <img src="media/2.2/train right.jpg" alt="train right.jpg">
-                <img src="media/2.2/trains.png" alt="trains.png">
-                <img src="media/2.2/stairs.jpg" alt="stairs.jpg">
-                <img src="media/2.2/Mitsuha Taki.jpg" alt="Mitsuha Taki.jpg">
-                <img src="media/2.2/Your Name.png" alt="Your Name.png">
-                <img src="media/2.2/Your Name FFT.png" alt="Your Name FFT.png"> -->
+                <img src="media/2/Mid-way.png" alt="Mid-way.png">
             </div>
         </div>
 
         <div class="section">
             <h2>Part 3: The Morph Sequence</h2>
-            <div class="image-row">
-                <!-- <img src="media/2.1/Taj.png" alt="Taj.png">
-                <img src="media/2.1/Golden Gate.png" alt="Golden Gate.png"> -->
-            </div>
-
             <p>
-                
+                I computed the intermediate points, warped both images into the intermediate shape,
+                cross dissolved the warped images, and finally generate each frame of the sequence of morphed images.
             </p>
             <div class="image-row">
-                <!-- <img src="media/2.2/DerekPicture.jpg" alt="DerekPicture.jpg">
-                <img src="media/2.2/nutmeg.jpg" alt="nutmeg.jpg">
-                <img src="media/2.2/Derekat.png" alt="Derekat.png">
-                <img src="media/2.2/train left.jpg" alt="train left.jpg">
-                <img src="media/2.2/train right.jpg" alt="train right.jpg">
-                <img src="media/2.2/trains.png" alt="trains.png">
-                <img src="media/2.2/stairs.jpg" alt="stairs.jpg">
-                <img src="media/2.2/Mitsuha Taki.jpg" alt="Mitsuha Taki.jpg">
-                <img src="media/2.2/Your Name.png" alt="Your Name.png">
-                <img src="media/2.2/Your Name FFT.png" alt="Your Name FFT.png"> -->
+                <img src="media/3/Morph Sequence.gif" alt="Morph Sequence.gif">
             </div>
         </div>
 
         <div class="section">
             <h2>Part 4: The "Mean face" of a population</h2>
-            <div class="image-row">
-                <!-- <img src="media/2.1/Taj.png" alt="Taj.png">
-                <img src="media/2.1/Golden Gate.png" alt="Golden Gate.png"> -->
-            </div>
-
             <p>
-                
+                Using the annotated faces from <a href="https://fei.edu.br/~cet/facedatabase.html">the FEI face database</a>  (1a-100a),
+                I computed the average shape, morphed all faces into the average shape,
+                computed the mean face, morphed my face into the average geometry,
+                and morphed the average face into my face's geometry.
             </p>
             <div class="image-row">
-                <!-- <img src="media/2.2/DerekPicture.jpg" alt="DerekPicture.jpg">
-                <img src="media/2.2/nutmeg.jpg" alt="nutmeg.jpg">
-                <img src="media/2.2/Derekat.png" alt="Derekat.png">
-                <img src="media/2.2/train left.jpg" alt="train left.jpg">
-                <img src="media/2.2/train right.jpg" alt="train right.jpg">
-                <img src="media/2.2/trains.png" alt="trains.png">
-                <img src="media/2.2/stairs.jpg" alt="stairs.jpg">
-                <img src="media/2.2/Mitsuha Taki.jpg" alt="Mitsuha Taki.jpg">
-                <img src="media/2.2/Your Name.png" alt="Your Name.png">
-                <img src="media/2.2/Your Name FFT.png" alt="Your Name FFT.png"> -->
+                <img src="media/4/Mean Face.png" alt="Mean Face.png">
+                <img src="media/4/Morphed to Average&Me.png" alt="Morphed to Average&Me.png">
             </div>
         </div>
 
         <div class="section">
             <h2>Part 5: Caricatures: Extrapolating from the mean</h2>
-            <div class="image-row">
-                <!-- <img src="media/2.1/Taj.png" alt="Taj.png">
-                <img src="media/2.1/Golden Gate.png" alt="Golden Gate.png"> -->
-            </div>
-
             <p>
-                
+                I generated the caricature keypoints by extrapolating from the mean
+                with several different &alpha;, then warped my face to the caricature keypoints.
             </p>
             <div class="image-row">
-                <!-- <img src="media/2.2/DerekPicture.jpg" alt="DerekPicture.jpg">
-                <img src="media/2.2/nutmeg.jpg" alt="nutmeg.jpg">
-                <img src="media/2.2/Derekat.png" alt="Derekat.png">
-                <img src="media/2.2/train left.jpg" alt="train left.jpg">
-                <img src="media/2.2/train right.jpg" alt="train right.jpg">
-                <img src="media/2.2/trains.png" alt="trains.png">
-                <img src="media/2.2/stairs.jpg" alt="stairs.jpg">
-                <img src="media/2.2/Mitsuha Taki.jpg" alt="Mitsuha Taki.jpg">
-                <img src="media/2.2/Your Name.png" alt="Your Name.png">
-                <img src="media/2.2/Your Name FFT.png" alt="Your Name FFT.png"> -->
+                <img src="media/5/Caricatures.png" alt="Caricatures.png">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Bells and Whistles: Gender Change</h2>
+            <p>
+                I changed my gender based on the Chinese female average face from
+                <a href="https://pmsol3.wordpress.com/2009/10/10/world-of-facial-averages-east-southeast-asia-pacific-islander/">The Postnational Monitor</a>.
+                I morphed just the shape, just the appearance, and both.
+
+            </p>
+            <div class="image-row">
+                <img src="media/B&W/Gender Change.png" alt="Gender Change.png">
             </div>
         </div>
 

@@ -53,10 +53,8 @@ h1 {
     flex-grow: 1;
     width: auto;
     max-width: 100%;
-}
-.image-row img {
-    flex: 1 1 0;
-    height: 300px;
+    max-height: 400px;
+    flex: 1 1 100%;
     object-fit: contain;
 }
 
