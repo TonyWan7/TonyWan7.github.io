@@ -48,12 +48,13 @@ h1 {
 }
 .image-row figure {
     text-align: center;
+    width: 100%;
 }
 .image-row img {
     flex-grow: 1;
     width: auto;
     max-width: 100%;
-    max-height: 400px;
+    max-height: 300px;
     flex: 1 1 100%;
     object-fit: contain;
 }

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project 4</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <div class="container">
@@ -15,50 +17,134 @@
         <div class="section">
             <h2>Part 1: Shoot the Pictures</h2>
             <p>
-                
+                Here are the pictures I shot to be used in the project:
             </p>
             <div class="image-row">
-                <!-- <img src="media/1/Triangulation.png" alt="Triangulation.png"> -->
+                <figure>
+                    <img src="media/1/Nagoya.jpg" alt="Nagoya.jpg">
+                    <figcaption>Nagoya Castle Painting</figcaption>
+                </figure>
+                
+                <figure>
+                    <img src="media/1/sushi.jpg" alt="sushi.jpg">
+                    <figcaption>Sushi</figcaption>
+                </figure>
+                
+                <figure>
+                    <img src="media/1/Building 1.jpg" alt="Building 1.jpg">
+                    <img src="media/1/Building 2.jpg" alt="Building 2.jpg">
+                    <figcaption>Building from 2 Angles</figcaption>
+                </figure>
+                
+                <figure>
+                    <img src="media/1/door 1.jpg" alt="door 1.jpg">
+                    <img src="media/1/door 2.jpg" alt="door 2.jpg">
+                    <figcaption>Door from 2 Angles</figcaption>
+                </figure>
+
+                <figure>
+                    <img src="media/1/washer 1.jpg" alt="washer 1.jpg">
+                    <img src="media/1/washer 2.jpg" alt="washer 2.jpg">
+                    <figcaption>Washer from 2 Angles</figcaption>
+                </figure>
             </div>
         </div>
 
         <div class="section">
-            <h2>Part 2: Recover Homographies"</h2>
+            <h2>Part 2: Recover Homographies</h2>
             <p>
-                
+                In order to recover the homographies, I defined several correspondence points for each pair of images
+                that need to be blended. Below is an example for the building:
             </p>
             <div class="image-row">
-                <!-- <img src="media/2/Mid-way.png" alt="Mid-way.png"> -->
+                <img src="media/2/Homographies.png" alt="Homographies.png", style="max-height: 600px">
             </div>
+            <p>
+                The math behind the algorithm is that in order to recover the transformation matrix,
+                we need to solve the matrix equation: 
+                $$
+                \begin{align*}
+                    &q=Hp \\
+                    \implies&
+                    \begin{bmatrix}
+                    wx^{'} \\
+                    wy^{'} \\
+                    w
+                    \end{bmatrix}
+                    =
+                    \begin{bmatrix}
+                    a_{11} & a_{12} & a_{13} \\
+                    a_{21} & a_{22} & a_{23} \\
+                    a_{31} & a_{32} & a_{33}
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    x \\
+                    y \\
+                    1
+                    \end{bmatrix} \\
+                    \implies&
+                    \begin{bmatrix}
+                    x & y & 1 & 0 & 0 & 0 & -xx^{'} & -x^{'}y \\
+                    0 & 0 & 0 & x & y & 1 & -xy^{'} & -yy^{'}
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    a_{11} \\ a_{12} \\ a_{13} \\
+                    a_{21} \\ a_{22} \\ a_{23} \\
+                    a_{31} \\ a_{32} \\ a_{33}
+                    \end{bmatrix}
+                    =
+                    \begin{bmatrix}
+                    x^{'} \\
+                    y^{'}
+                    \end{bmatrix}
+                \end{align*}
+                $$
+                After setting up the linear system, I use least square to solve it.
+            </p>
+            
         </div>
 
         <div class="section">
             <h2>Part 3: Warp the Images</h2>
             <p>
-                
-            <div class="image-row">
-                <!-- <img src="media/3/Morph Sequence.gif" alt="Morph Sequence.gif"> -->
-            </div>
+                I first warp the 4 corners of the image to find the output shape.
+                Then I use inverse warping to map every pixel to the target image.
+                I use interpolation to fill in the intermediate pixels. Also, I keep
+                a record of the alpha mask since the warped image is often not rectangular
+                and contains meaningless pixels that however should not be treated as black.
+                This is crucial when blending images together later as you don't want those
+                pixels to mess up the borders.
+            </p>            
         </div>
 
         <div class="section">
             <h2>Part 4: Image Rectification</h2>
             <p>
-                
+                Rectification is a good way to verify the functionality of the warping.
+                We warp the 4 corners of a should-be rectangular item into a
+                rectangle. It is achieved by just setting the correspondencies of the corners into a
+                manually defined rectangular. Below are some examples:
             </p>
             <div class="image-row">
-                <!-- <img src="media/4/Mean Face.png" alt="Mean Face.png">
-                <img src="media/4/Morphed to Average&Me.png" alt="Morphed to Average&Me.png"> -->
+                <img src="media/4/Nagoya.png" alt="Nagoya.png">
+                <img src="media/4/sushi.png" alt="sushi.png">
             </div>
         </div>
 
         <div class="section">
             <h2>Part 5: Blend the Images into a Mosaic</h2>
             <p>
-                
+                Adding everything up, I first use the correspondence points of a pair of images to
+                recover the homographies. Then I warp one of the image to the other one, and calculate
+                the resulting bounding box of the mosaic by transforming the corners of the image and shift
+                both images accordingly. After, I apply distance transforms to create an alpha mask
+                for each of the image to the nearst edge. Finally, I apply Laplace pyramids to the images and their masks to
+                help better blending in. Below are some examples:
             </p>
             <div class="image-row">
-                <!-- <img src="media/5/Caricatures.png" alt="Caricatures.png"> -->
+                <img src="media/5/Building.png" alt="Building.png">
+                <img src="media/5/door.png" alt="door.png">
+                <img src="media/5/washer.png" alt="washer.png">
             </div>
         </div>
 
