@@ -148,6 +148,88 @@
             </div>
         </div>
 
+        <div class="section">
+            <h2>Part 6: Interest Point Detection</h2>
+            <p>
+                Using the pre-implemented get_harris_corners function, I am able to detect the corners of my image.
+                However, without any suppression, the result is just too overwhelming around the features.
+                I then tuned the min_distance and threshold_rel parameters a little bit to preliminarily clean up the result.
+                Below is an example:
+            </p>
+            <div class="image-row">
+                <img src="media/6/Harris Corners.png" alt="Harris Corners.png">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Part 7: Adaptive Non-Maximal Suppression</h2>
+            <p>
+                The result is yet not satisfying enough, so I apply adaptive non-maximal suppression to improve them further,
+                eliminating clustered redundant information. The main math behind that is:
+                $$
+                \begin{align*}
+                    r_i=\min_{j}|x_i-x_j|, s.t. f(x_i) < c_{robust}f(x_j), x_{j} \in I
+                \end{align*}
+                $$
+                Or in other words, we only retain the strongest corner in its neighborhood. Theoretically, from 0 we gradually increase
+                r until we reach the desired number of interest points. Practically, we decrease r from infinity to generate a
+                comprehensive ordered list of interest points and just pick the top ones that we desire.
+                Below is an example after applying ANMS:
+            </p>
+            <div class="image-row">
+                <img src="media/7/Adaptive Non-Maximal Suppression.png" alt="Adaptive Non-Maximal Suppression.png">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Part 8: Feature Descriptor extraction</h2>
+            <p>
+                After obtaining a handy set of interest points, we want to extract features out of them in preparation of
+                the following matching phase. To do so, we first create a 40*40 patch around each interest point on
+                the Gaussian blurred image. We then subsample it with a spacing of 5 to form a 8*8 descriptor. Finally, 
+                we normalize the descriptors to have means of 0 and variance of 1. Below are some randomly chosen descriptors:
+            </p>
+            <div class="image-row">
+                <img src="media/8/Feature Descriptor extraction.png" alt="Feature Descriptor extraction.png">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Part 9: Feature Matching</h2>
+            <p>
+                Finally, in order to match features between 2 images, we compute pairwise Euclidean distances between their descriptors.
+                For each descriptor, instead of matching it to the nearest neighbor,
+                we find the two nearest neighbors in the other descriptors. Then apply Lowe's ratio test as suggested in the paper,
+                which is to threshold on the ratio of the nearest and the second nearest neighbor. This helps to eliminate lots of
+                outliers as experiments suggest. I also take the average second nearest neighbor distance into consideration, as it
+                reflects the outlier distance well. To avoid mismatching, I also cross check that both descriptors are the best match
+                for each other. Below is an example of a matching:
+            </p>
+            <div class="image-row">
+                <img src="media/9/Feature Matching.png" alt="Feature Matching.png", style="max-height: 600px">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Part 10: 4-point RANSAC</h2>
+            <p>
+                Even though we utilize lots of techniques to eliminate outliers and avoid mismatching, the result could still inevitably
+                be imperfect. Thus, to add a last layer of robustness, we use 4-point RANSAC to compute the best homography possible.
+                It is done by first randomly sample 4 points for homography estimation. Then compute the homography from the sampled points,
+                and calculate the number of inliers for this homography. We repeat this process in thousands of iterations, and
+                keep track of the homography with the largest set of inliers. 
+                At the end we recompute the homography with all inliers for the best model. Below are some comparision between the hand-selected
+                points and auto-matched ones and new results:
+            </p>
+            <div class="image-row">
+                <img src="media/5/washer.png" alt="washer.png">
+                <img src="media/10/washer.png" alt="washer.png">
+                <img src="media/5/door.png" alt="door.png">
+                <img src="media/10/door.png" alt="door.png">
+                <img src="media/10/trash can.png" alt="trash can.png">
+            </div>
+        </div>
+
         <div class="footer">
             <p>CS180 Project 4: (Auto)stitching and Photo Mosaics | Tony Wan | Fall 2024</p>
         </div>
