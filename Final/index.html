@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Project</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Final Project: Neural Radiance Field</h1>
+        <!-- <p class="subtitle">Colorizing the Prokudin-Gorskii Photo Collection</p> -->
+        <p class="author">By Tony Wan</p>
+
+        <div class="section">
+            <h2>Part 1: Fit a Neural Field to a 2D Image</h2>
+            <p>
+                The neural network consists of a sinusoidal positional encoding (PE) at the beginning,
+                followed by a multilayer perceptron (MLP), a stack of 4 fully connected layers and
+                ReLU and Sigmoid activations. It takes in the 2D position of a pixel and outputs
+                the predicted rgb color of that pixel.
+            </p>
+            <div class="image-row">
+                <figure>
+                    <img src="media/1/Fox PSNR (L=10, lr=0.01).png" alt="Fox PSNR (L=10, lr=0.01).png">
+                    <img src="media/1/Predicted Fox (L=10, lr=0.01).png" alt="Predicted Fox (L=10, lr=0.01).png">
+                    <figcaption>PSNR & Predicted Fox at iteration=1, 50, 100, 500, 2000 (left to right) with L=10, lr=0.01</figcaption>
+                </figure>
+            </div>
+            <div class="image-row">
+                <figure>
+                    <img src="media/1/Fox PSNR (L=20, lr=1e-3).png" alt="Fox PSNR (L=20, lr=1e-3).png">
+                    <img src="media/1/Predicted Fox (L=20, lr=1e-3).png" alt="Predicted Fox (L=20, lr=1e-3).png">
+                    <figcaption>PSNR & Predicted Fox at iteration=1, 50, 100, 500, 2000 (left to right) with L=20, lr=0.001</figcaption>
+                </figure>
+            </div>
+            <div class="image-row">
+                <figure>
+                    <img src="media/1/Monterey PSNR (L=10, lr=0.01).png" alt="Monterey PSNR (L=10, lr=0.01).png">
+                    <img src="media/1/Predicted Monterey (L=10, lr=0.01).png" alt="Predicted Monterey (L=10, lr=0.01).png">
+                    <figcaption>PSNR & Predicted Monterey at iteration=1, 50, 100, 500, 2000 (left to right) with L=10, lr=0.01</figcaption>
+                </figure>
+            </div>
+            <div class="image-row">
+                <figure>
+                    <img src="media/1/Monterey PSNR (L=20, lr=1e-3).png" alt="Monterey PSNR (L=20, lr=1e-3).png">
+                    <img src="media/1/Predicted Monterey (L=20, lr=1e-3).png" alt="Predicted Monterey (L=20, lr=1e-3).png">
+                    <figcaption>PSNR & Predicted Monterey at iteration=1, 50, 100, 500, 2000 (left to right) with L=20, lr=0.001</figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Part 2: Fit a Neural Radiance Field from Multi-view Images</h2>
+            <p>
+                Using the extrinsic and intrinsic of a camera, we can convert an pixel on the image
+                to the camera coordinate then to the world coordinate.
+                $$
+                \begin{align*}
+                    &x_c=w2c \times x_w \\
+                    \implies& x_w=c2w \times x_c \\
+                    &s * uv = K \times x_c \\
+                    \implies& x_c = s * K^{-1} \times x_c
+                    
+                \end{align*}
+                $$
+                Combine them together we can sample the origin and the direction of the ray corresponding
+                to a pixel. Then embed it into a dataloader, we are ready for training.
+            </p>
+            <div class="image-row">
+                <figure>
+                    <img src="media/2/Sample Rays.png" alt="Sample Rays.png">
+                    <img src="media/2/Sample Rays (20 Images).png" alt="Sample Rays (20 Images).png">
+                    <figcaption>Sampled rays from 1 image (left) and 20 images (right)</figcaption>
+                </figure>
+            </div>
+            For the neural radiance field, the network will be a bit deeper since it is 3D, we also concatinate the PE
+            back to the network in the middle for it to remember the input. It will also take in both the coordinate
+            and direction and ouput color and density.
+        </div>
+
+        <div class="footer">
+            <p>CS180 Final Project: Neural Radiance Field | Tony Wan | Fall 2024</p>
+        </div>
+    </div>
+</body>
+</html>
